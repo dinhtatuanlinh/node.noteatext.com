@@ -7,8 +7,17 @@ var formidable = require('formidable'); // module này để lấy thông tin t�
 var ObjectId = require('mongodb').ObjectID;
 var MongoClient = mongodb.MongoClient;
 
+var database = require('./libs/database');
+
 var Port = normalizePort(process.env.PORT || 1000);
 var db = 'admin';
+// var db = 'phuc';
+var companiesCollection = 'companies';
+var paticipantCollection = 'clients';
+var sessionCollection = 'session';
+var usersCollection = 'users';
+var calendarCollection = 'calendar';
+var args;
 
 var Dich_vu = http.createServer(async function(req, res) {
     var url1 = req.url.replace('/', '');
@@ -16,8 +25,9 @@ var Dich_vu = http.createServer(async function(req, res) {
     console.log(req.url);
     var receivedString = "";
     if (req.url === '/updatesession') {
+        var companydata = await database.getlist(companiesCollection, db, args);
         console.log('abce');
-        res.end('linh linh');
+        res.end(companydata);
         return;
     }
     req.on('data', (chunk) => { receivedString += chunk; }); // nhận dữ liệu từ client gửi lên
