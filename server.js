@@ -6,6 +6,7 @@ var mongodb = require('mongodb');
 var formidable = require('formidable'); // module này để lấy thông tin từ form
 var ObjectId = require('mongodb').ObjectID;
 var MongoClient = mongodb.MongoClient;
+var ejs = require('ejs'); // sử dụng để render ra file html trả cho client
 
 var database = require('./libs/database');
 
@@ -35,7 +36,17 @@ var Dich_vu = http.createServer(async function(req, res) {
     // console.log(receivedString);
     //Nếu request là uplooad và method là post
     req.on('end', async() => {
-        res.end('app is working');
+        var data = 'variable';
+        var ly = 'one more variable';
+        fs.readFile('views/index.ejs', 'utf-8', function(err, content) {
+            if (err) {
+                res.end('error occurred');
+                return;
+            }
+            var renderedHtml = ejs.render(content, { data: data, ly: ly }); //get rendered HTML code, truyền biến vào 
+            res.end(renderedHtml);
+        });
+        return;
     })
 
 });
