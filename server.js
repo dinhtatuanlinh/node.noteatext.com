@@ -27,7 +27,8 @@ var Dich_vu = http.createServer(async function(req, res) {
     if (req.url === '/updatesession') {
         var companydata = await database.getlist(companiesCollection, db, args);
         console.log(companydata);
-        res.end(companydata);
+        var a = JSON.stringify(companydata)
+        res.end(a);
         return;
     }
     req.on('data', (chunk) => { receivedString += chunk; }); // nhận dữ liệu từ client gửi lên
