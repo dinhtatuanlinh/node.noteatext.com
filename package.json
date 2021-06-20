@@ -1,0 +1,17 @@
+{
+  "name": "node.noteatext.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.2.2",
+    "mongodb": "^3.6.9",
+    "query-string": "^7.0.0"
+  }
+}
