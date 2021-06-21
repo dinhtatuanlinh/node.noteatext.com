@@ -41,16 +41,9 @@ var Dich_vu = http.createServer(async function(req, res) {
             //path tmp trên server
             var data = {};
 
-            data.companyinfo = fields.companyinfo;
             data.companyname = fields.companyname;
             data.logoname = file.logo.name;
-            data.eventinfo = fields.eventinfo;
-            data.numberOfPeople = fields.numberOfPeople;
-            data.salerid = fields.salerid;
-            data.location = fields.location;
-            data.session = [];
-            // data.session = sessionFunc.sessionFunc(fields.session);
-            // data.session = fields.session;
+
 
             if (file.logo.name) {
                 var path = file.logo.path;
@@ -63,10 +56,8 @@ var Dich_vu = http.createServer(async function(req, res) {
             }
             // console.log(data);
             var dataresult = await database.insertdata(companiesCollection, db, data);
-            comid = dataresult.insertedId.toString();
-
-            res.writeHead(301, { Location: `${clienturl}chooseSession.html?${comid}&${data.numberOfPeople}` });
-            console.log('abce');
+            // comid = dataresult.insertedId.toString();
+            console.log(data);
             res.end();
         });
 
