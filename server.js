@@ -32,6 +32,46 @@ var Dich_vu = http.createServer(async function(req, res) {
         res.end(a);
         return;
     }
+    if (req.url === '/submitForm' && req.method.toLowerCase() === 'post') {
+        var form = new formidable.IncomingForm();
+        //Thiết lập thư mục chứa file trên server
+        form.uploadDir = "uploads/";
+        //xử lý upload
+        form.parse(req, async function(err, fields, file) { // fields là các trường được gửi lên, file là file được gửi lên qua form
+            //path tmp trên server
+            var data = {};
+
+            data.companyinfo = fields.companyinfo;
+            data.companyname = fields.companyname;
+            data.logoname = file.logo.name;
+            data.eventinfo = fields.eventinfo;
+            data.numberOfPeople = fields.numberOfPeople;
+            data.salerid = fields.salerid;
+            data.location = fields.location;
+            data.session = [];
+            // data.session = sessionFunc.sessionFunc(fields.session);
+            // data.session = fields.session;
+
+            if (file.logo.name) {
+                var path = file.logo.path;
+                //thiết lập path mới cho file
+                var newpath = form.uploadDir + file.logo.name;
+                fs.rename(path, newpath, function(err) {
+                    if (err) throw err;
+                    // res.end('Upload Thanh cong!');
+                });
+            }
+            // console.log(data);
+            var dataresult = await database.insertdata(companiesCollection, db, data);
+            comid = dataresult.insertedId.toString();
+
+            res.writeHead(301, { Location: `${clienturl}chooseSession.html?${comid}&${data.numberOfPeople}` });
+            console.log('abce');
+            res.end();
+        });
+
+        return;
+    }
     req.on('data', (chunk) => { receivedString += chunk; }); // nhận dữ liệu từ client gửi lên
     // console.log(receivedString);
     //Nếu request là uplooad và method là post

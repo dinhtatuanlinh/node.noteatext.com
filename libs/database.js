@@ -1,8 +1,6 @@
 var mongodb = require('mongodb');
 
 var MongoClient = mongodb.MongoClient;
-// var url = 'mongodb+srv://dinhtatuanlinh:164342816@cluster0.ktgtg.mongodb.net/phuc?retryWrites=true&w=majority';
-// var url = 'mongodb://tuanlinh:0123698745aA@35.197.136.141/phuc?retryWrites=true&w=majority';
 var url = 'mongodb://tuanlinh:164342816@0.0.0.0:27017/admin';
 
 var db;
