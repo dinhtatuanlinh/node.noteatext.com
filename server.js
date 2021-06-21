@@ -58,6 +58,7 @@ var Dich_vu = http.createServer(async function(req, res) {
             var dataresult = await database.insertdata(companiesCollection, db, data);
             // comid = dataresult.insertedId.toString();
             console.log(data);
+            console.log(dataresult);
             res.end();
         });
 
